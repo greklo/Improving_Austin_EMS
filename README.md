@@ -1,4 +1,23 @@
-# EMS_Demand_Prediction_Capstone
+# Improving Austin EMS
+
+## Repository Guide
+
+Hello and thanks for checking out my project! This home page that your on right now contains the code I wrote for the
+interactive Flask Web App I created. If you want to see the the 'meat and potatoes' of this project please click the
+folder titled 'meat_and_potatoes'. Thanks again for visiting!
+
+## High level Summary
+
+Have you ever seen the movie 'Minority Report.' If not, don't worry, it's fairly easy to explain the premise. In the
+movie, Tom Cruise plays a detective from the future who through the use of psychics is able to predict when and where
+a crime will take place before a crime is committed. In a nutshell, Tom Cruise can predict the future.
+
+For the purposes of this project, I thought of myself as Tom Cruise. Instead of predicting crime before it happens I'm
+trying to predict where EMS services will be needed before a person calls 911. And instead of using psychics to predict
+the future I'm using machine learning algorithms. Specifically, I'm using something called a KMeans Clustering algorithm.
+
+I hope the prospect of predicting the future and possibly saving lives has peaked your interest. If so, please feel free
+to keep on reading!
 
 
 ## Overview
@@ -58,6 +77,12 @@ centroids and it outputs a map showing predicted 'hotspots' based on historical 
 
 ## Patient Refusal Prediction
 
-As stated in my overview above, patients have refused EMS transport in roughly 1/6 of the total incidents in the last
-five years.
+As I was combing through my data I came across a feature called 'disposition'. I looked into it and saw one of the
+values was 'patient refused.' What this means is that in a certain number of EMS response incidents the people being
+tended to refuse service. This in itself was not surprising to me. I come think of a host of reasons why people would
+refuse to ride to the hospital in an EMS vehicle. None the less I wanted to take a deeper dive into the data.
+
+### A Deeper Dive Into the Data
+
+
 
