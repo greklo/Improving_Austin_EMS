@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.css"
+    rel="stylesheet" type="text/css">
+<link
+    href="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.css"
+    rel="stylesheet" type="text/css">
+
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.12.5.min.js"></script>
+<script src="http://cdn.pydata.org/bokeh/release/bokeh-widgets-0.12.5.min.js"></script>
+
+</head>
+<body style="background-color:lightgrey;">
+<H1 style="text-align:center;font-size:36px"><font face="Arial">EMS Incident Location Prediction</H1>
+   <p style="text-align:center;font-size:22px"><font face = Arial> This interactive dashboard allows users to predict the
+	   area where EMS will be needed. Users can alter the day of week, hour of day, and number of
+	   centroids. Centroids represent clusters of incidents. The data will run through a model based on the parameters set, and an interactive map will
+	   load on the same page.
+   </p>
+   <p style="text-align:center;font-size:22px" ><font face = Arial>
+	   The red dots are the locations of where incidents have occurred over the last five years. The map is
+	   interactive, so you can hover over the dots to get the incident count for that location over the course of
+	   five years.
+   </p></font>
+
+
+<center>
+<form action="/submit" method="POST">
+
+<label for="day_of_week">Pick a Day
+
+<select class="select" name="day_of_week">
+	{% for day in day_of_week %}
+		{% if day == day_chosen %}
+			<option selected value="{{ day }}">{{ day }}</option>
+		{% else %}
+			<option value="{{ day }}">{{ day }}</option>
+		{% endif %}
+	{% endfor %}
+</select>
+</label>
+<label for="hour_of_day">Pick an Hour
+<select class="select" name="hour_of_day">
+	{% for hour in hour_of_day %}
+		{% if hour == hour_chosen %}
+			<option selected value="{{ hour }}">{{ hour }}</option>
+		{% else %}
+			<option value="{{ hour }}">{{ hour }}</option>
+		{% endif %}
+	{% endfor %}
+</select>
+</label>
+<label for="centroid_count">Number of Centroids Desired
+<select class="select" name="centroid_count">
+	{% for centroid in centroid_count %}
+		{% if centroid == centroids_chosen %}
+			<option selected value="{{ centroid }}">{{ centroid }}</option>
+		{% else %}
+			<option value="{{ centroid }}">{{ centroid }}</option>
+		{% endif %}
+	{% endfor %}
+</select>
+</label>
+<input type="submit">
+</form>
+
+{{ script|safe }}
+
+</center>
+</body>
+</html>
