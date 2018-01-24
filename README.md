@@ -55,7 +55,9 @@ data, I felt the most appropriate model was a KMeans Clustering algorithm.
 
 To illustrate how the algorithm works I've provided a step-by-by guide below (with pictures).
 
-### KMeans Clustering Explained (and how it can improve EMS services)
+## KMeans Clustering Explained (and how it can improve EMS services)
+
+### Step 1
 
 I want you to take a look at the picture below with the white backdrop and randomly placed points. If I asked you to
 separate these points into two groups you could do this fairly easily. With K-Means clustering, a computer will attempt
@@ -64,36 +66,126 @@ to do this using something called centroids.
 ![KMeans_s1](Images/KMeans_s1.png)
 
 
+### Step 2
+
+Because we believe this data can best be split by assigning two groups, we will tell the algorithm to assign two
+centroids (more on what a centroid is later). Here our centroids are represented by orange and blue triangles. The
+computer first randomly plots the centroids (pictured below).
+
+![KMeans_s2](Images/KMeans_s2.png)
+
+
+### Step 3
+
+The computer then does an initial grouping based on the randomly selected centroid locations. The goal of a centroid is
+to find the center (hence the name centroid) of the clusters, and as you can see, our triangles are far from the center
+of each cluster. As seen below, a portion of the points are categorized as blue as the other portion as orange.
+
+![KMeans_s3](Images/KMeans_s3.png)
+
+
+### Step 4
+
+As stated before, the goal of the centroid is to find the center of each cluster. The computer accomplishes this feat
+by iteratively moving the centroids until the center of the clusters is found.
+
+![KMeans_s4](Images/KMeans_s4.png)
+
+
+So we found the center of our clusters. That's great but how does this help us predict EMS demand throughout the city of
+Austin? Now instead of these being randomly placed points I want you to imagine these as precise locations for where
+ambulances have been sent to. And to make it more understandable, let’s overlay these incident points over a map of
+Austin.
+
+![KMeans_s5](Images/KMeans_s5.png)
+
+
+Now this is more understandable. We have a map of Austin along with points that represent where an ambulance was sent.
+But what do the centroids represent? For this project I want you to think of these triangles as ambulance
+vehicles (pictured below).
+
+If we can effectively cluster past incidents in Austin (broken up by hour of day, and day of week) then we can better
+dispatch ambulance vehicles to locations where incidents are more likely to occur.
+
+![KMeans_s6](Images/KMeans_s6.png)
+
+
+Furthermore, if we could look at trend data of where incidents are occurring year over year, then we could even think
+of the centroids as possible locations to build new Ambulance stations (pictured below).
+
+![KMeans_s7](Images/KMeans_s7.png)
+
+
+## The Web App
+
+What good is an EMS demand prediction model if no one can use it? I created a simple to use web application (using flask)
+so that EMS personnel could easily predict demand 'hotspots.' The web app works as follows:
+
+* Pick a day of the week
+
+* Pick an hour of the day
+
+* Pick number of centroids desired (think of these as the number of EMS vehicles available at a particular time)
+
+* Hoover over red dots (incident locations) to get a count of the incidents over the last five years
+
+![Web_app](Images/Web_app.png)
 
 
 
-
-
-
-
-## The Model
-
-As stated above, I used a KMeans clustering algorithm for my model. For this particular KMeans model, I passed through
-the coordinates of past events to try and determine 'hotspots' of where most incidents occur. What the KMeans classifier
-does is it finds the center of those 'hotspots' (also known as centroids). The tricky part about KMeans is determining
-the optimal number of 'hotspots' to tell the model to create. Using anywhere between seven to ten centroids gave me the
-best results. I think of a centroid as an EMS vehicle or an EMS station. The City of Austin has more than ten EMS
-vehicles but I wanted to see how much area I could cover with minimal centroids (EMS vehicles).
-
-But I also wanted my model to be adaptable and useful for the City of Austin. As a result, I made the model customizable
-and easy to use. The end result is a model that allows the user to input day of week, hour of day, and desired amount of
-centroids and it outputs a map showing predicted 'hotspots' based on historical data.
-
-
-
-## Patient Refusal Prediction
+# Patient Refusal Prediction
 
 As I was combing through my data I came across a feature called 'disposition'. I looked into it and saw one of the
 values was 'patient refused.' What this means is that in a certain number of EMS response incidents the people being
 tended to refuse service. This in itself was not surprising to me. I come think of a host of reasons why people would
 refuse to ride to the hospital in an EMS vehicle. None the less I wanted to take a deeper dive into the data.
 
-### A Deeper Dive Into the Data
+## A Deeper Dive Into the Data
+
+I put together I pie chart to see the exact percentage of total incidents that resulted in a patient refusing EMS
+services. As seen in the pie chart below, that percentage came out to 15.2% or roughly 92k cases. But what's
+really interesting is that out of these 92k cases, most of them are being categorized between priority 1-4 (a priority
+1 incident is the most urgent where as priority 5 is the least). My thought process was, if we can predict what patients
+ will refuse EMS services then perhaps EMS can better prioritize their dispatches.
+
+![PRA_pie](Images/PRA_pie.png)
+
+
+The next thing I did was figure out what features from the data I thought would be meaningful and I passed that through
+a model called Random Forest Classifier.
+
+It turns out that it's possible to predict which patients are likely to refuse (and I was able to correctly make that
+prediction 82% of the time). As seen in the picture below, the most import features that determine if a patient is going
+to refuse EMS service is the hour of the day and the census tract in which they live.
+
+Now by no means am I suggesting that if a patient is predicted to refuse EMS service should their priority level
+immediately be bumped down to a 5. That would be a reckless way to interpret the findings of my model. What the model
+results show is that there are certain locations in Austin that refuse service more than others. Whether it's because
+certain communities don't trust EMS or it's simply too expensive, the point is there are areas of Austin where EMS
+service needs to better address a communities' specific needs.
+
+
+![PRA_model](Images/PRA_model.png)
+
+
+# Future Work and Challenges
+
+Specifically I would like to know in what areas are people refusing ambulance services most. In the future I would like
+to gather additional information from the city of Austin to do a deeper dive into.
+
+This project came together well, but not without significant challenges. The incident location data I was given was
+actually grouped into something called census tracts (think of these as zip codes but a little more specific to location).
+This means that my model was predicting areas in which an incident was likely to occur rather than specific locations.
+Precise EMS response location data is hihgly sensitive information so it's understandable why Austin EMS couldn't
+provide it. If I could work with the city under the agreement that all location data would be kept secret then I’m sure
+ I can create a better clustering algorithm.
+
+
+# Thank You!
+
+Thank for reading this far into my project and I hope you found it interesting!
+
+Thanks again to the city of ATCEMS for providing the data and I really hope this analysis helps you guys.
 
 
 
