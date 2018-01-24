@@ -61,7 +61,7 @@ I want you to take a look at the picture below with the white backdrop and rando
 separate these points into two groups you could do this fairly easily. With K-Means clustering, a computer will attempt
 to do this using something called centroids.
 
-![KMeans_s1](https://user-images.githubusercontent.com/greklo/Improving_Austin_EMS/Images/KMeans_s1)
+![KMeans_s1](Images/KMeans_s1.png)
 
 
 
