@@ -4,7 +4,7 @@
 
 Hello and thanks for checking out my project! This home page that your on right now contains the code I wrote for the
 interactive Flask Web App I created. If you want to see the the 'meat and potatoes' of this project please click the
-folder titled 'meat_and_potatoes'. Thanks again for visiting!
+folder titled 'meat_and_potatoes.' Thanks again for visiting!
 
 ## High level Summary
 
@@ -23,10 +23,9 @@ to keep on reading!
 ## Overview
 
 In the City of Austin alone, there are over one-hundred thousand EMS dispatches per year (and every year that number is
-increasing). In a number of these scenarios a matter of minutes could be the difference between life and death.
+increasing). In a number of these scenarios, a matter of minutes could be the difference between life and death.
 My goal for this project was to create a machine learning model that could possibly help reduce response times. In order
-to do that, I sought out to create a model that could predict where an incident would occur before it occurred (think
-Minority Report but instead 'pre-crime' it's 'pre-EMS incident').
+to do that, I sought out to create a model that could predict where an incident would occur before it occurred.
 
 To provide a little more detail, it was my objective to predict 'hot-spots' of where EMS vehicles will be needed based
 on the hour of the day and the day of the week.
@@ -52,7 +51,19 @@ form.
 EMS response location data is highly sensitive information. With a specific data (timestamp, Latitude and Longitude) one
 can conceivably deduce the identity of the person being tended to. To de-identify the information, The City of Austin
 provided census-block location data rather than specific latitude, longitude. Because of the nature of the location
-data, I felt the most appropriate model was a KMeans classifier.
+data, I felt the most appropriate model was a KMeans Clustering algorithm.
+
+To illustrate how the algorithm works I've provided a step-by-by guide below (with pictures).
+
+### KMeans Clustering Explained (and how it can improve EMS services)
+
+I want you to take a look at the picture below with the white backdrop and randomly placed points. If I asked you to
+separate these points into two groups you could do this fairly easily. With K-Means clustering, a computer will attempt
+to do this using something called centroids.
+
+![KMeans_s1](https://raw.githubusercontent.com/greklo/Improving_Austin_EMS/Images/KMeans_s1.png)
+
+
 
 
 
@@ -62,7 +73,7 @@ data, I felt the most appropriate model was a KMeans classifier.
 
 ## The Model
 
-As stated above, I used a KMeans clustering classifier as my model. For this particular KMeans model, I passed through
+As stated above, I used a KMeans clustering algorithm for my model. For this particular KMeans model, I passed through
 the coordinates of past events to try and determine 'hotspots' of where most incidents occur. What the KMeans classifier
 does is it finds the center of those 'hotspots' (also known as centroids). The tricky part about KMeans is determining
 the optimal number of 'hotspots' to tell the model to create. Using anywhere between seven to ten centroids gave me the

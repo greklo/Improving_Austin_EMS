@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 
 # Load dataset
-df = pd.read_csv("EMS_model_EDA_data/Data/updated_merged_df")
+df = pd.read_csv("meat_and_potatoes/Data/updated_merged_df")
 day_of_week=["Monday", "Tuesday", "Wednesday", "Thursday", "Friday","Saturday","Sunday"]
 hour_of_day = list(range(0,24))
 centroid_count = list(range(1,16))
